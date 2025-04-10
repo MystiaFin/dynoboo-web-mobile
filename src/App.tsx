@@ -1,3 +1,4 @@
+import "./App.css";
 import homeLogo from "./assets/home/logo.png";
 import homeBackground from "./assets/home/background.png";
 const buttonStyle: string = "bg-white rounded-full px-8 py-4 font-medium";
@@ -11,7 +12,7 @@ function App() {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-cover bg-center bg-no-repeat -z-15"
+      className="font-secondary fixed inset-0 flex items-center justify-center bg-cover bg-center bg-no-repeat -z-15"
       style={{ backgroundImage: `url(${homeBackground})` }}
     >
       <div className="flex flex-col justify-center items-center container mx-auto">
