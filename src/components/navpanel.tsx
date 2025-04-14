@@ -2,7 +2,7 @@ import AvatarPlaceholder from "../assets/navbar/avatar-placeholder.png";
 
 const NavItems = ["Products", "Whishlist", "Order Catalog", "Contact Us"];
 const listItems = NavItems.map((item, index) => (
-  <li key={index} className="text-white mb-[50%] text-lg">
+  <li key={index} className="text-white mb-[35%] text-lg">
     {item}
   </li>
 ));
