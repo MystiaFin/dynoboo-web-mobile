@@ -1,6 +1,7 @@
 import "./App.css";
 import homeLogo from "./assets/home/logo.png";
 import homeBackground from "./assets/home/background.png";
+import { NavLink } from "react-router";
 const buttonStyle: string = "bg-white rounded-full px-8 py-4 font-medium";
 
 const authImages = import.meta.glob("./assets/auth/*.{png,jpg,jpeg,svg}", {
@@ -38,7 +39,9 @@ function App() {
           <button className={buttonStyle}>Sign up</button>
         </div>
         <span className="text-[#F7A600] font-bold text-center mt-4 pb-[4%]">
-          Skip for now
+          <NavLink to="/landing">
+            <span className="cursor-pointer">Skip for now</span>
+          </NavLink>
         </span>
         <div className="flex justify-center items-center gap-4 mt-6 pb-[4%]">
           {authContent.map((icon: any, index) => (
