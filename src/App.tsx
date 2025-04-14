@@ -19,11 +19,11 @@ function App() {
       <div className="flex flex-col justify-center items-center container mx-auto">
         <div className="flex flex-col justify-center items-center text-center">
           <div className="absolute w-64 h-64 rounded-full bg-white/30 blur-xl radial-gradient -z-10"></div>
-          <h2 className="font-black text-3xl sm:text-2xl md:text-3xl mb-2 pb-[4%]">
+          <h2 className="font-black text-3xl sm:text-2xl md:text-3xl mb-2">
             Welcome
           </h2>
-          <h3 className="font-medium text-xl mb-2 pb-[4%]">to</h3>
-          <span className="px-2 py-1 rounded-full bg-white/50 font-medium text-xl text-[#FAAC01] mb-2 pb-[4%]">
+          <h3 className="font-medium text-xl mb-2">to</h3>
+          <span className="px-3 py-2 rounded-full bg-white/50 font-medium text-xl text-[#FAAC01] mb-2">
             DynooBoo Store
           </span>
         </div>
@@ -31,7 +31,7 @@ function App() {
           <img
             src={homeLogo}
             alt="Home Logo"
-            className="w-[68%] h-auto mt-5 mb-5 pb-[4%]"
+            className="w-52 h-auto mt-5 mb-2 pb-2"
           />
         </div>
         <div className="flex justify-center items-center gap-4 pb-[4%]">
