@@ -4,3 +4,7 @@
 @theme {
   --font-secondary: "Poppins", sans-serif;
 }
+
+:root {
+  background-color: #ececea;
+}

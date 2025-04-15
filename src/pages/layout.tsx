@@ -3,10 +3,10 @@ import Hamburger from "../components/hamburger";
 
 const layout = () => {
   return (
-    <>
+    <div>
       <Hamburger />
       <Outlet />
-    </>
+    </div>
   );
 };
 

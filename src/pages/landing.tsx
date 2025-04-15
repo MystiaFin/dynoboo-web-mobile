@@ -1,5 +1,6 @@
 import dynoRight from "../assets/landing/dyno-right.png";
 import dynoLeft from "../assets/landing/dyno-left.png";
+import { NavLink } from "react-router";
 
 const Landing = () => {
   return (
@@ -10,7 +11,9 @@ const Landing = () => {
         </span>
         <span className="font-bold text-5xl text-[#3A603B] ">Craftshop</span>
         <button className="mt-[40%] w-38 h-13 bg-[#3A603B] text-white py-3 px-6 rounded-full font-bold">
-          Order Here
+          <NavLink to="/home">
+            <span className="cursor-pointer">Order Now</span>
+          </NavLink>
         </button>
       </div>
       <div>
