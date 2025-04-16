@@ -11,7 +11,7 @@ const Landing = () => {
         </span>
         <span className="font-bold text-5xl text-[#3A603B] ">Craftshop</span>
         <button className="mt-[40%] w-38 h-13 bg-[#3A603B] text-white py-3 px-6 rounded-full font-bold">
-          <NavLink to="/home">
+          <NavLink to="/product">
             <span className="cursor-pointer">Order Now</span>
           </NavLink>
         </button>

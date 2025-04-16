@@ -9,7 +9,7 @@ import HomeLayout from "./pages/layout.tsx";
 
 // Page Imports
 import Landing from "./pages/landing.tsx";
-import Home from "./pages/home.tsx";
+import Product from "./pages/product.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -18,7 +18,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<App />} />
         <Route element={<HomeLayout />}>
           <Route path="/landing" element={<Landing />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/product" element={<Product />} />
         </Route>
       </Routes>
     </BrowserRouter>

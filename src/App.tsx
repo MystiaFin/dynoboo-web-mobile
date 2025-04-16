@@ -1,6 +1,6 @@
 import "./App.css";
-import homeLogo from "./assets/home/logo.png";
-import homeBackground from "./assets/home/background.png";
+import homeLogo from "./assets/landingAuth/logo.png";
+import homeBackground from "./assets/landingAuth/background.png";
 import { NavLink } from "react-router";
 const buttonStyle: string = "bg-white rounded-full px-7 py-3 font-medium";
 
