@@ -12,12 +12,12 @@ function App() {
   const authContent = Object.values(authImages);
 
   return (
-    <div
+    <main
       className="font-secondary fixed inset-0 flex items-center justify-center bg-cover bg-center bg-no-repeat -z-15"
       style={{ backgroundImage: `url(${homeBackground})` }}
     >
       <div className="flex flex-col justify-center items-center container mx-auto">
-        <div className="flex flex-col justify-center items-center text-center">
+        <header className="flex flex-col justify-center items-center text-center">
           <div className="absolute w-64 h-64 rounded-full bg-white/30 blur-xl radial-gradient -z-10"></div>
           <h2 className="font-black text-3xl sm:text-2xl md:text-3xl mb-2">
             Welcome
@@ -26,14 +26,14 @@ function App() {
           <span className="px-3 py-2 rounded-full bg-white/50 font-medium text-xl text-[#FAAC01] mb-2">
             DynooBoo Store
           </span>
-        </div>
-        <div className="flex justify-center">
+        </header>
+        <section className="flex justify-center">
           <img
             src={homeLogo}
             alt="Home Logo"
             className="w-52 h-auto mt-5 mb-2 pb-2"
           />
-        </div>
+        </section>
         <div className="flex justify-center items-center gap-4 pb-[4%]">
           <button className={buttonStyle}>Sign In</button>
           <button className={buttonStyle}>Sign up</button>
@@ -43,7 +43,7 @@ function App() {
             <span className="cursor-pointer">Skip for now</span>
           </NavLink>
         </span>
-        <div className="flex justify-center items-center gap-4 mt-6 pb-[4%]">
+        <footer className="flex justify-center items-center gap-4 mt-6 pb-[4%]">
           {authContent.map((icon: any, index) => (
             <a
               href="#"
@@ -57,10 +57,10 @@ function App() {
               />
             </a>
           ))}
-        </div>
+        </footer>
         <div className="absolute bottom-0 left-0 w-full h-[35%] bg-gradient-to-b from-white/40 to-transparent -z-10"></div>
       </div>
-    </div>
+    </main>
   );
 }
 export default App;

@@ -14,7 +14,7 @@ interface NavPanelState {
 
 const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
   return (
-    <div
+    <aside
       className={`fixed w-[54%] h-screen bg-[#3A603BF5]/96 top-0 transition-transform duration-300 ease-in-out z-30 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
@@ -38,16 +38,16 @@ const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
             />
           </svg>
         </button>
-        <div className="flex flex-col items-center justify-center gap-2 mb-10 text-white">
+        <header className="flex flex-col items-center justify-center gap-2 mb-10 text-white">
           <img src={AvatarPlaceholder} alt="Avatar placeholder" />
           <span>Haven't signed yet?</span>
           <span className="cursor-pointer">Sign in / Sign up</span>
-        </div>
+        </header>
         <nav>
           <ul className="">{listItems}</ul>
         </nav>
       </div>
-    </div>
+    </aside>
   );
 };
 

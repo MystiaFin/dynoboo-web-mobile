@@ -11,14 +11,14 @@ const Product = () => {
     { id: 5, name: "Product 5", price: "$50", image: Placeholder },
   ];
   return (
-    <div className="pt-24">
+    <main className="pt-24">
       <HomeSliders />
-      <div className="flex flex-wrap px-3 py-5 gap-3 justify-center align-center">
+      <section className="flex flex-wrap px-3 py-5 gap-3 justify-center align-center">
         {productList.map((product) => (
           <ProductCard key={product.id} {...product} />
         ))}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 

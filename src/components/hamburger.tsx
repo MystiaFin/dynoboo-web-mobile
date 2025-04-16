@@ -16,7 +16,7 @@ const Hamburger = () => {
   };
 
   return (
-    <div className="font-secondary">
+    <nav className="font-secondary">
       {/* Hamburger Menu Button */}
       <div
         className={`flex mt-[10%] items-center gap-7 fixed z-20 transition-transform duration-300 ease-in-out ${
@@ -33,14 +33,14 @@ const Hamburger = () => {
           ))}
         </button>
         <div className="flex flex-col mb-2">
-          <span>DynoBoo Logo</span>
+          <strong>DynoBoo Logo</strong>
           <span className="text-xs">Slogan</span>
         </div>
       </div>
 
       {/* Nav Panel */}
       <NavPanel isOpen={isOpen} onClose={closeNavPanel} />
-    </div>
+    </nav>
   );
 };
 
