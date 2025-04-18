@@ -1,4 +1,5 @@
 import AvatarPlaceholder from "../assets/navbar/avatar-placeholder.png";
+import { NavLink } from "react-router";
 
 const NavItems = ["Products", "Whishlist", "Order Catalog", "Contact Us"];
 const listItems = NavItems.map((item, index) => (
@@ -41,7 +42,10 @@ const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
         <header className="flex flex-col items-center justify-center gap-2 mb-10 text-white">
           <img src={AvatarPlaceholder} alt="Avatar placeholder" />
           <span>Haven't signed yet?</span>
-          <span className="cursor-pointer">Sign in / Sign up</span>
+          <span className="cursor-pointer">
+            <NavLink to="/signin">Sign in</NavLink> /
+            <NavLink to="signup">Sign up</NavLink>
+          </span>
         </header>
         <nav>
           <ul className="">{listItems}</ul>

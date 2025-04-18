@@ -2,15 +2,10 @@ import "./App.css";
 import homeLogo from "./assets/landingAuth/logo.png";
 import homeBackground from "./assets/landingAuth/background.png";
 import { NavLink } from "react-router";
+import AuthGoogle from "./assets/auth/google.svg";
 const buttonStyle: string = "bg-white rounded-full px-7 py-3 font-medium";
 
-const authImages = import.meta.glob("./assets/auth/*.{png,jpg,jpeg,svg}", {
-  eager: true,
-});
-
 function App() {
-  const authContent = Object.values(authImages);
-
   return (
     <main
       className="font-secondary fixed inset-0 flex items-center justify-center bg-cover bg-center bg-no-repeat -z-15"
@@ -43,20 +38,9 @@ function App() {
             <span className="cursor-pointer">Skip for now</span>
           </NavLink>
         </span>
-        <footer className="flex justify-center items-center gap-4 mt-6 pb-[4%]">
-          {authContent.map((icon: any, index) => (
-            <a
-              href="#"
-              key={index}
-              className="hover:opacity-80 transition-opacity pb-[4%]"
-            >
-              <img
-                src={icon.default}
-                alt={`Auth option ${index + 1}`}
-                className="bg-white rounded-lg p-2 w-12 h-12 object-contain"
-              />
-            </a>
-          ))}
+        <footer className="flex px-4 py-2 bg-white flex-row justify-center items-center rounded-full gap-2">
+          <img src={AuthGoogle} className="w-10 h-10" />
+          <span>Sign in with Google</span>
         </footer>
         <div className="absolute bottom-0 left-0 w-full h-[35%] bg-gradient-to-b from-white/40 to-transparent -z-10"></div>
       </div>
