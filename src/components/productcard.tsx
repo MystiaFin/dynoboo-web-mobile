@@ -13,7 +13,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, price, image }) => {
   const rating = 5;
 
   return (
-    <article className="flex flex-col mb-5">
+    <main className="flex flex-col mb-5">
       <header className="relative">
         <img
           src={image}
@@ -38,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, price, image }) => {
         <span className="pr-3 text-right">{price}</span>
         <img src={Rating} alt="Rating" className="max-w-8" />
       </footer>
-    </article>
+    </main>
   );
 };
 

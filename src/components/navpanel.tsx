@@ -1,10 +1,18 @@
 import AvatarPlaceholder from "../assets/navbar/avatar-placeholder.png";
 import { NavLink } from "react-router";
 
-const NavItems = ["Products", "Whishlist", "Order Catalog", "Contact Us"];
+const NavItems = [
+  { name: "Products", path: "/product" },
+  { name: "Whishlist", path: "/wishlist" },
+  { name: "Order Catalog", path: "/order" },
+  { name: "Contact Us", path: "/contact-us" },
+];
+
 const listItems = NavItems.map((item, index) => (
   <li key={index} className="text-white mb-[35%] text-lg">
-    {item}
+    <NavLink to={item.path} className="hover:text-gray-300">
+      {item.name}
+    </NavLink>
   </li>
 ));
 
@@ -43,8 +51,13 @@ const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
           <img src={AvatarPlaceholder} alt="Avatar placeholder" />
           <span>Haven't signed yet?</span>
           <span className="cursor-pointer">
-            <NavLink to="/signin">Sign in</NavLink> /
-            <NavLink to="signup">Sign up</NavLink>
+            <NavLink to="/signin" className="underline mr-2">
+              Sign in
+            </NavLink>
+            /
+            <NavLink to="signup" className="underline ml-2">
+              Sign up
+            </NavLink>
           </span>
         </header>
         <nav>

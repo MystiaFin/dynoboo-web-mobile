@@ -30,8 +30,12 @@ function App() {
           />
         </section>
         <div className="flex justify-center items-center gap-4 pb-[4%]">
-          <button className={buttonStyle}>Sign In</button>
-          <button className={buttonStyle}>Sign up</button>
+          <button className={buttonStyle}>
+            <NavLink to="signin">Sign In</NavLink>
+          </button>
+          <button className={buttonStyle}>
+            <NavLink to="signup">Sign Up</NavLink>
+          </button>
         </div>
         <span className="text-[#F7A600] font-bold text-center mt-4 pb-[4%]">
           <NavLink to="/landing">

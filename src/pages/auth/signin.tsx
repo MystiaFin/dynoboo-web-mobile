@@ -1,3 +1,4 @@
+import { useState } from "react";
 import EmailIcon from "../../assets/auth/email.svg";
 import PasswordIcon from "../../assets/auth/password.svg";
 
@@ -5,6 +6,9 @@ const InputStyle: string =
   "flex bg-white py-3 px-5 font-bold border border-[#FAAC01] rounded-lg mb-8";
 
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <main className="flex flex-col justify-center items-center">
       <div className="flex justify-center text-gray-600">
@@ -17,6 +21,8 @@ const SignIn = () => {
               id="email"
               name="email"
               placeholder="Input Your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -27,6 +33,8 @@ const SignIn = () => {
               id="password"
               name="password"
               placeholder="Input Your Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>

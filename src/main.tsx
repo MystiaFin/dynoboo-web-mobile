@@ -13,6 +13,8 @@ import Landing from "./pages/landing.tsx";
 import Product from "./pages/product.tsx";
 import SignIn from "./pages/auth/signin.tsx";
 import SignUp from "./pages/auth/signup.tsx";
+import Wishlist from "./pages/wishlist.tsx";
+import Order from "./pages/order.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -26,6 +28,8 @@ createRoot(document.getElementById("root")!).render(
         <Route element={<HomeLayout />}>
           <Route path="/landing" element={<Landing />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/order" element={<Order />} />
         </Route>
       </Routes>
     </BrowserRouter>
