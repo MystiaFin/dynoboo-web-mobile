@@ -1,5 +1,4 @@
-import { Outlet, NavLink } from "react-router";
-import { useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation } from "react-router";
 import Background from "../../assets/landingAuth/background.png";
 import Logo from "../../assets/landingAuth/logo.png";
 

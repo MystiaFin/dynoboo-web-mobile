@@ -8,14 +8,14 @@ interface WishItemsProps {
   isNew: boolean;
 }
 
-const WishItems: React.FC<ProductCardProps> = ({
+const WishItems: React.FC<WishItemsProps> = ({
   id,
   name,
   brand,
   normalprice,
   price,
   image,
-  isNew,
+  // isNew, // Assuming isNew is not used in this component
 }) => {
   return (
     <main className="w-full mt-[20%] flex flex-row mb-5 justify-between items-center">
