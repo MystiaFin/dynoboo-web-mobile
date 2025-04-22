@@ -10,6 +10,7 @@ const WishList = () => {
       image: Placeholder,
       price: "10.000",
       normalprice: "15.000",
+      isNew: true,
     },
   ];
   return (

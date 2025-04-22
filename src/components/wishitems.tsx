@@ -15,14 +15,18 @@ const WishItems: React.FC<WishItemsProps> = ({
   normalprice,
   price,
   image,
-  // isNew, // Assuming isNew is not used in this component
+  isNew, // Assuming isNew is not used in this component
 }) => {
   return (
     <main className="w-full mt-[20%] flex flex-row mb-5 justify-between items-center">
       <section className="flex gap-2">
         <img src={image} alt="Product" className="" />
         <div className="flex flex-col">
-          <span className="bg-gray-300 w-[45px] py-1 text-center rounded-md text-xs font-bold">
+          <span
+            className={`bg-gray-300 w-[45px] py-1 text-center rounded-md text-xs font-bold ${
+              isNew ? "flex" : "hidden"
+            }`}
+          >
             BARU
           </span>
           <h3 className="font-extralight">{brand}</h3>
