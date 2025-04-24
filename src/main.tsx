@@ -15,6 +15,7 @@ import SignIn from "./pages/auth/signin.tsx";
 import SignUp from "./pages/auth/signup.tsx";
 import Wishlist from "./pages/wishlist.tsx";
 import Order from "./pages/order.tsx";
+import OTPpage from "./pages/auth/otp.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -24,6 +25,7 @@ createRoot(document.getElementById("root")!).render(
         <Route element={<AuthLayout />}>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/userauth" element={<OTPpage />} />
         </Route>
         <Route element={<HomeLayout />}>
           <Route path="/landing" element={<Landing />} />
@@ -33,5 +35,5 @@ createRoot(document.getElementById("root")!).render(
         </Route>
       </Routes>
     </BrowserRouter>
-  </StrictMode>,
+  </StrictMode>
 );
