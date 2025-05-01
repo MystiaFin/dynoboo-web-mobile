@@ -65,7 +65,10 @@ const SignIn = () => {
         </form>
       </div>
       <footer className="flex justify-between items-center mt-6">
-        <button className="py-3 px-20 bg-[#FAAC01] rounded-lg font-bold text-xl text-white">
+        <button
+          onClick={handleSubmit}
+          className="py-3 px-20 bg-[#FAAC01] rounded-lg font-bold text-xl text-white"
+        >
           Sign In
         </button>
       </footer>
