@@ -31,7 +31,7 @@ const SignUp = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email, password }),
-        }
+        },
       );
       if (res.ok) {
         sessionStorage.setItem("email", email);
@@ -85,7 +85,7 @@ const SignUp = () => {
           )}
           <button
             type="submit"
-            className="w-full py-3 px-20 bg-[#FAAC01] rounded-lg font-bold text-xl text-white"
+            className="mb-14 w-full py-3 px-20 bg-[#FAAC01] rounded-lg font-bold text-xl text-white"
           >
             Sign Up
           </button>

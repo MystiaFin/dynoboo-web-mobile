@@ -5,6 +5,7 @@ import Logo from "../../assets/landingAuth/logo.png";
 const AuthLayout = () => {
   const location = useLocation();
   const isSignIn = location.pathname === "/signin";
+  const isAuthPage = location.pathname === "/userauth";
 
   return (
     <main
@@ -21,6 +22,7 @@ const AuthLayout = () => {
               "linear-gradient(to right, #F7F8AA 0%, white 45%, white 55%, #F7F8AA 100%)",
             backgroundSize: "200% 100%",
             backgroundPosition: isSignIn ? "0% 0%" : "100% 0%",
+            display: isAuthPage ? "none" : "flex",
           }}
         >
           <NavLink to="/signin">Sign In</NavLink>
