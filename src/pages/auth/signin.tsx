@@ -9,6 +9,30 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        },
+      );
+      if (res.ok) {
+        window.location.href = "/landing";
+      } else {
+        const data = await res.json();
+        alert(data.error || "Failed to sign in");
+      }
+    } catch (err) {
+      alert("Server error");
+    }
+  };
+
   return (
     <main className="flex flex-col justify-center items-center">
       <div className="flex justify-center text-gray-600">
