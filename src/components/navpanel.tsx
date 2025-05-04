@@ -17,8 +17,6 @@ interface NavPanelProps {
 const NavPanel = ({ isOpen, onClose }: NavPanelProps) => {
   const { user, loading, logout } = useAuth();
 
-  console.log("NavPanel rendering with auth state:", { user, loading });
-
   const handleLogout = async () => {
     await logout();
     onClose();
