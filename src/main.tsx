@@ -17,23 +17,28 @@ import Wishlist from "./pages/wishlist.tsx";
 import Order from "./pages/order.tsx";
 import OTPpage from "./pages/auth/otp.tsx";
 
+// Auth Context
+import { AuthProvider } from "./context/AuthContext.tsx";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route element={<AuthLayout />}>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/userauth" element={<OTPpage />} />
-        </Route>
-        <Route element={<HomeLayout />}>
-          <Route path="/landing" element={<Landing />} />
-          <Route path="/product" element={<Product />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/order" element={<Order />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/userauth" element={<OTPpage />} />
+          </Route>
+          <Route element={<HomeLayout />}>
+            <Route path="/landing" element={<Landing />} />
+            <Route path="/product" element={<Product />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/order" element={<Order />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  </StrictMode>,
 );

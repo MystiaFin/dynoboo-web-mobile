@@ -1,5 +1,7 @@
 import AvatarPlaceholder from "../assets/navbar/avatar-placeholder.png";
 import { NavLink } from "react-router";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const NavItems = [
   { name: "Products", path: "/product" },
@@ -22,6 +24,20 @@ interface NavPanelState {
 }
 
 const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
+  const [email, setEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get("/api/users/me", { withCredentials: true });
+        setEmail(res.data.email); // ✅ Save email
+      } catch (err) {
+        setEmail(null); // not logged in
+      }
+    };
+
+    fetchUser();
+  }, []);
   return (
     <aside
       className={`fixed w-[54%] h-screen bg-[#3A603BF5]/96 top-0 transition-transform duration-300 ease-in-out z-30 ${
@@ -49,17 +65,27 @@ const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
         </button>
         <header className="flex flex-col items-center justify-center gap-2 mb-10 text-white">
           <img src={AvatarPlaceholder} alt="Avatar placeholder" />
-          <span>Haven't signed yet?</span>
-          <span className="cursor-pointer">
-            <NavLink to="/signin" className="underline mr-2">
-              Sign in
-            </NavLink>
-            /
-            <NavLink to="signup" className="underline ml-2">
-              Sign up
-            </NavLink>
-          </span>
+          {email ? (
+            <>
+              <span>Welcome,</span>
+              <span className="font-semibold">{email}</span>
+            </>
+          ) : (
+            <>
+              <span>Haven't signed in yet?</span>
+              <span className="cursor-pointer">
+                <NavLink to="/signin" className="underline mr-2">
+                  Sign in
+                </NavLink>
+                /
+                <NavLink to="/signup" className="underline ml-2">
+                  Sign up
+                </NavLink>
+              </span>
+            </>
+          )}
         </header>
+
         <nav>
           <ul className="">{listItems}</ul>
         </nav>
