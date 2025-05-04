@@ -1,43 +1,29 @@
 import AvatarPlaceholder from "../assets/navbar/avatar-placeholder.png";
-import { NavLink } from "react-router";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const NavItems = [
   { name: "Products", path: "/product" },
-  { name: "Whishlist", path: "/wishlist" },
+  { name: "Wishlist", path: "/wishlist" },
   { name: "Order Catalog", path: "/order" },
   { name: "Contact Us", path: "/contact-us" },
 ];
 
-const listItems = NavItems.map((item, index) => (
-  <li key={index} className="text-white mb-[35%] text-lg">
-    <NavLink to={item.path} className="hover:text-gray-300">
-      {item.name}
-    </NavLink>
-  </li>
-));
-
-interface NavPanelState {
+interface NavPanelProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
-  const [email, setEmail] = useState<string | null>(null);
+const NavPanel = ({ isOpen, onClose }: NavPanelProps) => {
+  const { user, loading, logout } = useAuth();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await axios.get("/api/users/me", { withCredentials: true });
-        setEmail(res.data.email); // ✅ Save email
-      } catch (err) {
-        setEmail(null); // not logged in
-      }
-    };
+  console.log("NavPanel rendering with auth state:", { user, loading });
 
-    fetchUser();
-  }, []);
+  const handleLogout = async () => {
+    await logout();
+    onClose();
+  };
+
   return (
     <aside
       className={`fixed w-[54%] h-screen bg-[#3A603BF5]/96 top-0 transition-transform duration-300 ease-in-out z-30 ${
@@ -65,20 +51,37 @@ const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
         </button>
         <header className="flex flex-col items-center justify-center gap-2 mb-10 text-white">
           <img src={AvatarPlaceholder} alt="Avatar placeholder" />
-          {email ? (
+
+          {loading ? (
+            <div className="text-white">Loading...</div>
+          ) : user ? (
             <>
               <span>Welcome,</span>
-              <span className="font-semibold">{email}</span>
+              <span className="font-semibold">{user.email}</span>
+              <button
+                onClick={handleLogout}
+                className="mt-2 px-4 py-1 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm"
+              >
+                Sign Out
+              </button>
             </>
           ) : (
             <>
               <span>Haven't signed in yet?</span>
               <span className="cursor-pointer">
-                <NavLink to="/signin" className="underline mr-2">
+                <NavLink
+                  to="/signin"
+                  className="underline mr-2"
+                  onClick={onClose}
+                >
                   Sign in
                 </NavLink>
                 /
-                <NavLink to="/signup" className="underline ml-2">
+                <NavLink
+                  to="/signup"
+                  className="underline ml-2"
+                  onClick={onClose}
+                >
                   Sign up
                 </NavLink>
               </span>
@@ -87,7 +90,21 @@ const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
         </header>
 
         <nav>
-          <ul className="">{listItems}</ul>
+          <ul>
+            {NavItems.map((item, index) => (
+              <li key={index} className="text-white mb-[35%] text-lg">
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    isActive ? "text-[#FAAC01]" : "hover:text-gray-300"
+                  }
+                  onClick={onClose}
+                >
+                  {item.name}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
         </nav>
       </div>
     </aside>
