@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
 import EmailIcon from "../../assets/auth/email.svg";
 import PasswordIcon from "../../assets/auth/password.svg";
 
@@ -10,7 +9,6 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { setUser } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +30,6 @@ const SignIn = () => {
       const data = await res.json();
 
       if (res.ok) {
-        setUser(data.user);
         window.location.href = "/landing";
       } else {
         setError(data.error || "Failed to sign in");

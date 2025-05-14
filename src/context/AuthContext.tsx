@@ -1,107 +1,95 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface User {
-  id: number | string;
+  id: string;
+  name: string;
   email: string;
-  name: string | null;
-  createdAt?: string;
-  updatedAt?: string;
-  isAdmin?: boolean;
+  isAdmin: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  loading: boolean;
-  logout: () => Promise<void>;
-  refreshUser: () => Promise<void>;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  refreshAuth: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  setUser: () => {},
-  loading: true,
-  logout: async () => {},
-  refreshUser: async () => {},
-});
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const refreshUser = async () => {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/users/me`,
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      if (!res.ok) {
-        setUser(null);
-        return;
-      }
-
-      const data = await res.json();
-
-      // Handle different response formats
-      if (data && data.user) {
-        setUser(data.user);
-      } else if (data && data.id && data.email) {
-        setUser(data);
-      } else {
-        setUser(null);
-      }
-    } catch (error) {
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Fetch user data on initial load
-  useEffect(() => {
-    refreshUser();
-  }, []);
-
-  // Logout function
-  const logout = async () => {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/users/logout`,
-        {
-          method: "POST",
-          credentials: "include",
-        },
-      );
-
-      if (res.ok) {
-        setUser(null);
-        window.location.href = "/login";
-      }
-    } catch (error) {
-      // Silent fail - user will see they're still logged in
-    }
-  };
-
-  return (
-    <AuthContext.Provider
-      value={{ user, setUser, loading, logout, refreshUser }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };
 
-export const useAuth = () => useContext(AuthContext);
+interface AuthProviderProps {
+  children: React.ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Get the base API URL from environment variable
+  const API_BASE_URL =
+    import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
+  const fetchUser = async () => {
+    try {
+      // Don't check for cookie in JavaScript if it's httpOnly
+      // The browser will automatically send it with credentials: "include"
+      const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // This ensures cookies are sent
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData);
+        setIsAuthenticated(true);
+      } else if (response.status === 401) {
+        // Token is invalid, expired, or missing
+        setUser(null);
+        setIsAuthenticated(false);
+      } else {
+        throw new Error("Failed to fetch user");
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      setUser(null);
+      setIsAuthenticated(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Fetch user on mount
+  useEffect(() => {
+    fetchUser();
+  }, []); // Remove dependency on cookies
+
+  // Manual refresh function
+  const refreshAuth = async () => {
+    setIsLoading(true);
+    await fetchUser();
+  };
+
+  const value: AuthContextType = {
+    user,
+    isAuthenticated,
+    isLoading,
+    refreshAuth,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+
+export default AuthContext;

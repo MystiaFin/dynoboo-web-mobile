@@ -4,23 +4,26 @@ import { useAuth } from "../context/AuthContext";
 
 const NavItems = [
   { name: "Products", path: "/product" },
-  { name: "Wishlist", path: "/wishlist" },
+  { name: "Whishlist", path: "/wishlist" },
   { name: "Order Catalog", path: "/order" },
   { name: "Contact Us", path: "/contact-us" },
 ];
 
-interface NavPanelProps {
+const listItems = NavItems.map((item, index) => (
+  <li key={index} className="text-white mb-[35%] text-lg">
+    <NavLink to={item.path} className="hover:text-gray-300">
+      {item.name}
+    </NavLink>
+  </li>
+));
+
+interface NavPanelState {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const NavPanel = ({ isOpen, onClose }: NavPanelProps) => {
-  const { user, loading, logout } = useAuth();
-
-  const handleLogout = async () => {
-    await logout();
-    onClose();
-  };
+const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
+  const { user, isLoading } = useAuth();
 
   return (
     <aside
@@ -47,39 +50,20 @@ const NavPanel = ({ isOpen, onClose }: NavPanelProps) => {
             />
           </svg>
         </button>
+
         <header className="flex flex-col items-center justify-center gap-2 mb-10 text-white">
           <img src={AvatarPlaceholder} alt="Avatar placeholder" />
-
-          {loading ? (
-            <div className="text-white">Loading...</div>
-          ) : user ? (
-            <>
-              <span>Welcome,</span>
-              <span className="font-semibold">{user.email}</span>
-              <button
-                onClick={handleLogout}
-                className="mt-2 px-4 py-1 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm"
-              >
-                Sign Out
-              </button>
-            </>
+          {!isLoading && user ? (
+            <span className="text-xl font-semibold">{user.name}</span>
           ) : (
             <>
               <span>Haven't signed in yet?</span>
               <span className="cursor-pointer">
-                <NavLink
-                  to="/signin"
-                  className="underline mr-2"
-                  onClick={onClose}
-                >
+                <NavLink to="/signin" className="underline mr-2">
                   Sign in
                 </NavLink>
                 /
-                <NavLink
-                  to="/signup"
-                  className="underline ml-2"
-                  onClick={onClose}
-                >
+                <NavLink to="/signup" className="underline ml-2">
                   Sign up
                 </NavLink>
               </span>
@@ -88,21 +72,7 @@ const NavPanel = ({ isOpen, onClose }: NavPanelProps) => {
         </header>
 
         <nav>
-          <ul>
-            {NavItems.map((item, index) => (
-              <li key={index} className="text-white mb-[35%] text-lg">
-                <NavLink
-                  to={item.path}
-                  className={({ isActive }) =>
-                    isActive ? "text-[#FAAC01]" : "hover:text-gray-300"
-                  }
-                  onClick={onClose}
-                >
-                  {item.name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+          <ul>{listItems}</ul>
         </nav>
       </div>
     </aside>
