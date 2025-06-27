@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       // Don't check for cookie in JavaScript if it's httpOnly
       // The browser will automatically send it with credentials: "include"
-      const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+      const response = await fetch(`${API_BASE_URL}/api/user/me`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

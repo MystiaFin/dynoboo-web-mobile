@@ -3,6 +3,7 @@
 
 @theme {
   --font-secondary: "Poppins", sans-serif;
+  --color-green-nav: #3a603bf5;
 }
 
 :root {

@@ -5,7 +5,7 @@ import React from "react";
 
 interface ProductCardProps {
   name: string;
-  price: string;
+  price: number;
   image: string;
 }
 

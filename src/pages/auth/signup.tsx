@@ -24,7 +24,7 @@ const SignUp = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/users/register`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/user/register`,
         {
           method: "POST",
           headers: {
@@ -35,7 +35,7 @@ const SignUp = () => {
       );
       if (res.ok) {
         sessionStorage.setItem("email", email);
-        navigate("/userauth");
+        navigate("/signin");
       } else {
         const data = await res.json();
         setError(data.error || "Failed to register");

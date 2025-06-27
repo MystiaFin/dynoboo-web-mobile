@@ -16,7 +16,7 @@ const SignIn = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/users/login`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/user/login`,
         {
           method: "POST",
           headers: {
