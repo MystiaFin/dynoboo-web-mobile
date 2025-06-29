@@ -10,8 +10,16 @@ interface Product {
   image: string;
 }
 
+// API response interface to match your JSON structure
+interface ApiProduct {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  images: string[] | null;
+}
+
 const ProductPage = () => {
-  // Fix: Properly type the state as Product[]
   const [productList, setProductList] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,14 +38,14 @@ const ProductPage = () => {
           throw new Error(`Failed to fetch products: ${res.status}`);
         }
 
-        const data = await res.json();
+        const data: ApiProduct[] = await res.json();
 
         // Map the API response to your Product interface
-        const formatted: Product[] = data.map((product: any) => ({
+        const formatted: Product[] = data.map((product) => ({
           id: product.id,
           name: product.name,
           price: product.price,
-          // Use the first image from the images array, fallback to placeholder
+          // Handle both null and empty array cases
           image:
             product.images && product.images.length > 0
               ? product.images[0]
@@ -62,7 +70,9 @@ const ProductPage = () => {
       <div>
         <HomeSliders />
         <div className="container mx-auto p-4">
-          <p>Loading products...</p>
+          <div className="flex justify-center items-center min-h-[200px]">
+            <p className="text-lg">Loading products...</p>
+          </div>
         </div>
       </div>
     );
@@ -74,7 +84,23 @@ const ProductPage = () => {
       <div>
         <HomeSliders />
         <div className="container mx-auto p-4">
-          <p className="text-red-500">Error: {error}</p>
+          <div className="flex justify-center items-center min-h-[200px]">
+            <p className="text-red-500 text-lg">Error: {error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Handle empty state
+  if (productList.length === 0) {
+    return (
+      <div>
+        <HomeSliders />
+        <div className="container mx-auto p-4">
+          <div className="flex justify-center items-center min-h-[200px]">
+            <p className="text-lg text-gray-500">No products available</p>
+          </div>
         </div>
       </div>
     );
@@ -84,11 +110,10 @@ const ProductPage = () => {
     <div>
       <HomeSliders />
       <div className="container mx-auto p-4">
-        <div className="flex flex-wrap px-3 py-5 gap-3 justify-center align-center">
+        <div className="flex flex-wrap px-3 py-5 gap-3 justify-center items-center">
           {productList.map((product) => (
             <ProductCard
               key={product.id}
-              id={product.id}
               name={product.name}
               price={product.price}
               image={product.image}
