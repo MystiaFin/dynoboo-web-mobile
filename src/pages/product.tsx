@@ -10,7 +10,6 @@ interface Product {
   image: string;
 }
 
-// API response interface to match your JSON structure
 interface ApiProduct {
   id: number;
   name: string;
@@ -40,12 +39,10 @@ const ProductPage = () => {
 
         const data: ApiProduct[] = await res.json();
 
-        // Map the API response to your Product interface
         const formatted: Product[] = data.map((product) => ({
           id: product.id,
           name: product.name,
           price: product.price,
-          // Handle both null and empty array cases
           image:
             product.images && product.images.length > 0
               ? product.images[0]
@@ -64,7 +61,6 @@ const ProductPage = () => {
     fetchProducts();
   }, []);
 
-  // Handle loading state
   if (loading) {
     return (
       <div>

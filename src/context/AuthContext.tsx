@@ -35,20 +35,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Get the base API URL from environment variable
-  const API_BASE_URL =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const fetchUser = async () => {
     try {
-      // Don't check for cookie in JavaScript if it's httpOnly
-      // The browser will automatically send it with credentials: "include"
       const response = await fetch(`${API_BASE_URL}/api/user/me`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // This ensures cookies are sent
+        credentials: "include",
       });
 
       if (response.ok) {
@@ -56,7 +52,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(userData);
         setIsAuthenticated(true);
       } else if (response.status === 401) {
-        // Token is invalid, expired, or missing
         setUser(null);
         setIsAuthenticated(false);
       } else {
@@ -71,10 +66,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Fetch user on mount
   useEffect(() => {
     fetchUser();
-  }, []); // Remove dependency on cookies
+  }, []);
 
   // Manual refresh function
   const refreshAuth = async () => {
