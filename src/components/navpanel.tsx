@@ -1,3 +1,4 @@
+import { Instagram } from "lucide-react";
 import AvatarPlaceholder from "../assets/navbar/avatar-placeholder.png";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -10,7 +11,7 @@ const NavItems = [
 ];
 
 const listItems = NavItems.map((item, index) => (
-  <li key={index} className="text-white mb-[35%] text-lg">
+  <li key={index} className="text-white mb-6 text-lg">
     <NavLink to={item.path} className="hover:text-gray-300">
       {item.name}
     </NavLink>
@@ -74,6 +75,24 @@ const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
         <nav>
           <ul>{listItems}</ul>
         </nav>
+
+        <footer className="flex flex-col mt-4 gap-1">
+          <span className="text-white text-lg mb-2">Follow us on:</span>
+          <div className="flex gap-4">
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-gray-300"
+            >
+              <Instagram className="size-6" />
+            </a>
+          </div>
+
+          {!isLoading && user && (
+            <a className="underline text-white text-md mt-8 ml-6">Logout</a>
+          )}
+        </footer>
       </div>
     </aside>
   );
