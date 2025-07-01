@@ -26,6 +26,26 @@ interface NavPanelState {
 const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
   const { user, isLoading } = useAuth();
 
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/user/logout`,
+        {
+          method: "POST",
+          credentials: "include",
+        },
+      );
+
+      if (response.ok) {
+        window.location.href = "/signin";
+      } else {
+        console.error("Logout failed");
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
   return (
     <aside
       className={`fixed w-[54%] h-screen bg-[#3A603BF5]/96 top-0 transition-transform duration-300 ease-in-out z-30 ${
@@ -76,11 +96,11 @@ const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
           <ul>{listItems}</ul>
         </nav>
 
-        <footer className="flex flex-col mt-4 gap-1">
+        <footer className="flex flex-col mt-4 gap-1 items-start">
           <span className="text-white text-lg mb-2">Follow us on:</span>
           <div className="flex gap-4">
             <a
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/dynoboo/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-gray-300"
@@ -90,7 +110,12 @@ const NavPanel = ({ isOpen, onClose }: NavPanelState) => {
           </div>
 
           {!isLoading && user && (
-            <a className="underline text-white text-md mt-8 ml-6">Logout</a>
+            <button
+              onClick={handleLogout}
+              className="underline text-white text-md mt-8"
+            >
+              Logout
+            </button>
           )}
         </footer>
       </div>
