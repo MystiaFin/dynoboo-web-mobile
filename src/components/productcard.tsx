@@ -2,18 +2,30 @@ import Rating from "../assets/product/rating.png";
 import Star from "../assets/product/star.png";
 import Cart from "../assets/product/cart.png";
 import React from "react";
+import { useNavigate } from "react-router";
 
 interface ProductCardProps {
+  id: string;
   name: string;
   price: number;
   image: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ name, price, image }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  id,
+  name,
+  price,
+  image,
+}) => {
   const rating = 5;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/product/${id}`);
+  };
 
   return (
-    <main className="flex flex-col mb-5">
+    <main className="flex flex-col mb-5 cursor-pointer" onClick={handleClick}>
       <header className="relative">
         <img
           src={image}

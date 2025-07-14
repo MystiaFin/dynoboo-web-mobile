@@ -16,6 +16,7 @@ import SignIn from "./pages/auth/signin.tsx";
 import SignUp from "./pages/auth/signup.tsx";
 import Wishlist from "./pages/wishlist.tsx";
 import Order from "./pages/order.tsx";
+import ProductDetails from "./pages/productdetails.tsx";
 
 // Auth Context
 import { AuthProvider } from "./context/AuthContext.tsx";
@@ -43,6 +44,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/product" element={<Product />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/order" element={<Order />} />
+            <Route path="/product/:productid" element={<ProductDetails />} />
           </Route>
           <Route element={<AdminLayout />}>
             <Route path="/admin" element={<AdminDashboard />} />

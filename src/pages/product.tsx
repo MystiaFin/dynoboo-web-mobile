@@ -4,14 +4,14 @@ import ProductCard from "../components/productcard";
 import Placeholder from "../assets/product/placeholder.png";
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
 }
 
 interface ApiProduct {
-  id: number;
+  id: string;
   name: string;
   description: string;
   price: number;
@@ -74,7 +74,6 @@ const ProductPage = () => {
     );
   }
 
-  // Handle error state
   if (error) {
     return (
       <div>
@@ -110,6 +109,7 @@ const ProductPage = () => {
           {productList.map((product) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               name={product.name}
               price={product.price}
               image={product.image}
