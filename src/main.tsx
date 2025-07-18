@@ -24,7 +24,7 @@ import { AuthProvider } from "./context/AuthContext.tsx";
 // Admin Imports
 import AdminLayout from "./admin/layout.tsx";
 import AdminDashboard from "./admin/pages/Dashboard.tsx";
-import AdminProducts from "./admin/pages/Products.tsx";
+import AdminProducts from "./admin/pages/AdminProducts.tsx";
 import AdminOrders from "./admin/pages/Orders.tsx";
 import AdminNewProduct from "./admin/pages/NewProduct.tsx";
 
