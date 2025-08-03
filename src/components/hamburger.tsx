@@ -54,7 +54,7 @@ const Hamburger = () => {
         <NavLink to="/wishlist">
           <img src={WishIcon} alt="wishlist" />
         </NavLink>
-        <NavLink to="/order">
+        <NavLink to="/cart">
           <img src={CartIcon} alt="order" className="pb-1" />
         </NavLink>
       </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
+import { toast } from "sonner";
 import Star from "../assets/product/star.png";
 import Cart from "../assets/product/cart.png";
 import Placeholder from "../assets/product/placeholder.png";
@@ -19,6 +20,8 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   const rating = 5;
 
@@ -67,10 +70,61 @@ const ProductDetails = () => {
     fetchProduct();
   }, [productid]);
 
-  const handleAddToCart = () => {
-    if (product) {
-      // Add to cart logic here
-      console.log(`Added product ${product.id} to cart`);
+  const handleAddToCart = async () => {
+    if (!product) return;
+
+    setIsAddingToCart(true);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/items/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            productId: product.id,
+            quantity: quantity,
+          }),
+        },
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          toast.error("Please log in to add items to cart");
+          navigate("/login");
+          return;
+        }
+        throw new Error(
+          result.error || `HTTP error! status: ${response.status}`,
+        );
+      }
+
+      if (result.success) {
+        toast.success(
+          `${quantity} ${product.name}${quantity > 1 ? "s" : ""} added to cart!`,
+        );
+        setQuantity(1);
+      } else {
+        throw new Error(result.error || "Failed to add item to cart");
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast.error(
+        error instanceof Error ? error.message : "Failed to add item to cart",
+      );
+    } finally {
+      setIsAddingToCart(false);
+    }
+  };
+
+  const handleQuantityChange = (newQuantity: number) => {
+    if (newQuantity >= 1) {
+      setQuantity(newQuantity);
     }
   };
 
@@ -191,13 +245,48 @@ const ProductDetails = () => {
             </p>
           </div>
 
+          {/* Quantity Selector */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Quantity
+            </label>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => handleQuantityChange(quantity - 1)}
+                disabled={quantity <= 1}
+                className="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                -
+              </button>
+              <span className="text-lg font-medium min-w-[2rem] text-center">
+                {quantity}
+              </span>
+              <button
+                onClick={() => handleQuantityChange(quantity + 1)}
+                className="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
           {/* Add to Cart Button */}
           <button
             onClick={handleAddToCart}
-            className="w-full bg-[#3E733D] hover:bg-[#2d5a2c] text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors"
+            disabled={isAddingToCart}
+            className="w-full bg-[#3E733D] hover:bg-[#2d5a2c] text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <img src={Cart} alt="Cart" className="w-5 h-5" />
-            Add to Cart
+            {isAddingToCart ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                Adding...
+              </>
+            ) : (
+              <>
+                <img src={Cart} alt="Cart" className="w-5 h-5" />
+                Add {quantity} to Cart
+              </>
+            )}
           </button>
         </div>
       </div>
