@@ -96,7 +96,7 @@ const ProductDetails = () => {
       if (!response.ok) {
         if (response.status === 401) {
           toast.error("Please log in to add items to cart");
-          navigate("/login");
+          navigate("/signin");
           return;
         }
         throw new Error(
